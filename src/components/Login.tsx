@@ -19,8 +19,22 @@ export default function Login({ onLogin }: LoginProps) {
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email && password) {
-      toast("success", "Login efetuado com sucesso!");
-      onLogin();
+      const users = JSON.parse(localStorage.getItem("aceleracv_users") || "[]");
+      const user = users.find((u: any) => u.email === email && u.password === password);
+      
+      // Default admin account just in case
+      if (email === "admin@aceleracv.com" && password === "admin123") {
+        toast("success", "Bem-vindo Administrador!");
+        onLogin();
+        return;
+      }
+
+      if (user) {
+        toast("success", `Bem-vindo de volta, ${user.name.split(" ")[0]}!`);
+        onLogin();
+      } else {
+        toast("error", "E-mail ou senha incorretos.");
+      }
     }
   };
 
@@ -31,6 +45,15 @@ export default function Login({ onLogin }: LoginProps) {
       return;
     }
     if (name && email && password) {
+      const users = JSON.parse(localStorage.getItem("aceleracv_users") || "[]");
+      if (users.find((u: any) => u.email === email)) {
+        toast("error", "Este e-mail já está cadastrado!");
+        return;
+      }
+      
+      users.push({ name, email, password });
+      localStorage.setItem("aceleracv_users", JSON.stringify(users));
+
       toast("success", "Conta criada com sucesso! Faça login para continuar.");
       setView("login");
       setPassword("");
@@ -41,8 +64,17 @@ export default function Login({ onLogin }: LoginProps) {
   const handleForgotSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast("info", "Instruções de recuperação enviadas para o seu e-mail.");
-      setView("login");
+      const users = JSON.parse(localStorage.getItem("aceleracv_users") || "[]");
+      const user = users.find((u: any) => u.email === email);
+      if (user) {
+        toast("info", `[Sistema Local]: A sua senha é '${user.password}'.`);
+        setView("login");
+      } else if (email === "admin@aceleracv.com") {
+        toast("info", `[Sistema Local]: A sua senha é 'admin123'.`);
+        setView("login");
+      } else {
+        toast("error", "E-mail não encontrado no sistema.");
+      }
     }
   };
 
