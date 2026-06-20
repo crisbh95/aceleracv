@@ -13,6 +13,7 @@ import CoverLetter from "./components/CoverLetter";
 import NetworkingGenerator from "./components/NetworkingGenerator";
 import InterviewSimulator from "./components/InterviewSimulator";
 import CompanyDossier from "./components/CompanyDossier";
+import Login from "./components/Login";
 import { ThemeToggle } from "./components/ThemeProvider";
 
 import {
@@ -39,6 +40,7 @@ export default function App() {
   const [cvData, setCvData] = useState<CVData>(DEV_MOCK_CV);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sharedJobDescription, setSharedJobDescription] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -66,6 +68,10 @@ export default function App() {
     setSharedJobDescription(jd);
     localStorage.setItem("aceleracv_job_description", jd);
   };
+
+  if (!isLoggedIn) {
+    return <Login onLogin={() => setIsLoggedIn(true)} />;
+  }
 
   const navItems = [
     { path: "/perfil", label: "O Meu CV / Perfil", icon: User },
