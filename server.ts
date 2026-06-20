@@ -14,7 +14,8 @@ dotenv.config({ path: '.env.local' });
 dotenv.config();
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: "20mb" }));
+app.use(express.urlencoded({ limit: "20mb", extended: true }));
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3005;
 
@@ -471,7 +472,7 @@ app.post("/api/parse-cv-file", checkApiKey, async (req, res) => {
           data: fileBase64,
         },
       };
-      contents = { parts: [documentPart, { text: prompt }] };
+      contents = [documentPart, prompt];
     } else if (rawText) {
       contents = prompt + `\n\nTexto do Currículo:\n${rawText}`;
     } else {
