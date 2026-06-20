@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -74,14 +74,14 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
       }
 
       if (data.error === "API_KEY_MISSING") {
-        throw new Error("A chave API do Gemini Ã© necessÃ¡ria nos Secrets (Settings) para realizar o preenchimento automÃ¡tico.");
+        throw new Error("A chave API do Gemini é necessária nos Secrets (Settings) para realizar o preenchimento automático.");
       }
 
       onChange(data);
-      toast("success", "O seu currÃ­culo foi lido e todos os campos foram preenchidos de forma automÃ¡tica!");
+      toast("success", "O seu currículo foi lido e todos os campos foram preenchidos de forma automática!");
     } catch (err: any) {
       console.error("Erro no processamento do ficheiro:", err);
-      setUploadError(err.message || "NÃ£o foi possÃ­vel processar o currÃ­culo.");
+      setUploadError(err.message || "Não foi possível processar o currículo.");
     } finally {
       setUploading(false);
     }
@@ -104,12 +104,12 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
 
   // Convert CV to Markdown for downloading
   const convertCVToMarkdown = (cv: CVData): string => {
-    let md = `# CURRÃCULO PROFISSIONAL: ${cv.fullName || "Candidato"}\n\n`;
+    let md = `# CURRÍCULO PROFISSIONAL: ${cv.fullName || "Candidato"}\n\n`;
     if (cv.email || cv.phone || cv.location || cv.website) {
       const contactInfo = [];
       if (cv.email) contactInfo.push(`**Email:** ${cv.email}`);
       if (cv.phone) contactInfo.push(`**Telefone:** ${cv.phone}`);
-      if (cv.location) contactInfo.push(`**LocalizaÃ§Ã£o:** ${cv.location}`);
+      if (cv.location) contactInfo.push(`**Localização:** ${cv.location}`);
       if (cv.website) contactInfo.push(`**LinkedIn/Website:** ${cv.website}`);
       md += contactInfo.join("  |  ") + "\n\n";
     }
@@ -122,10 +122,10 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
     }
     
     if (cv.experience && cv.experience.length > 0) {
-      md += `## EXPERIÃŠNCIA PROFISSIONAL\n\n`;
+      md += `## EXPERIÊNCIA PROFISSIONAL\n\n`;
       cv.experience.forEach(exp => {
-        md += `### ${exp.role} â€” ${exp.company}\n`;
-        md += `*${exp.startDate} â€“ ${exp.endDate || "Presente"}*  |  *${exp.location || "Cabo Verde"}*\n\n`;
+        md += `### ${exp.role} — ${exp.company}\n`;
+        md += `*${exp.startDate} – ${exp.endDate || "Presente"}*  |  *${exp.location || "Cabo Verde"}*\n\n`;
         if (exp.description) {
           md += `${exp.description}\n\n`;
         }
@@ -134,16 +134,16 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
     }
     
     if (cv.education && cv.education.length > 0) {
-      md += `## EDUCAÃ‡ÃƒO & FORMAÃ‡ÃƒO\n\n`;
+      md += `## EDUCAÇÃO & FORMAÇÃO\n\n`;
       cv.education.forEach(edu => {
-        md += `### ${edu.degree} â€” ${edu.fieldOfStudy}\n`;
-        md += `*${edu.school}*  |  *${edu.startDate} â€“ ${edu.endDate || ""}*  |  *${edu.location || ""}*\n\n`;
+        md += `### ${edu.degree} — ${edu.fieldOfStudy}\n`;
+        md += `*${edu.school}*  |  *${edu.startDate} – ${edu.endDate || ""}*  |  *${edu.location || ""}*\n\n`;
       });
       md += `---\n\n`;
     }
     
     if (cv.skills && cv.skills.length > 0) {
-      md += `## COMPETÃŠNCIAS & FERRAMENTAS\n\n`;
+      md += `## COMPETÊNCIAS & FERRAMENTAS\n\n`;
       md += cv.skills.map(s => `- ${s}`).join("\n") + "\n\n";
     }
     
@@ -285,18 +285,18 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
 
   return (
     <div id="resume-form-container" className="space-y-8 animate-fade-in">
-      {/* Consolidado: ImportaÃ§Ã£o de Dados, Download e Upload com IA */}
+      {/* Consolidado: Importação de Dados, Download e Upload com IA */}
       <div id="import-upload-container" className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Upload de arquivo de CurrÃ­culo Inteligente (Esquerda) */}
+        {/* Upload de arquivo de Currículo Inteligente (Esquerda) */}
         <div id="resume-upload-card" className="lg:col-span-6 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs flex flex-col justify-between whitespace-normal text-left">
           <div className="space-y-1 mb-4">
             <h3 id="upload-card-title" className="text-slate-800 font-display font-semibold text-sm flex items-center gap-2">
               <UploadCloud className="w-5 h-5 text-emerald-600" />
-              Preenchimento AutomÃ¡tico via Upload ðŸ¤–
+              Preenchimento Automático via Upload 🤖
             </h3>
             <p id="upload-card-desc" className="text-slate-505 text-xs">
-              Deixe que a InteligÃªncia Artificial faÃ§a o trabalho pesado de preencher todos os seus dados pessoais, experiÃªncias e competÃªncias de uma sÃ³ vez!
+              Deixe que a Inteligência Artificial faça o trabalho pesado de preencher todos os seus dados pessoais, experiências e competências de uma só vez!
             </p>
           </div>
 
@@ -324,8 +324,8 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
             {uploading ? (
               <div className="space-y-2 flex flex-col items-center">
                 <Loader2 className="w-8 h-8 text-emerald-600 animate-spin" />
-                <p className="text-xs font-semibold text-slate-700">Preenchendo currÃ­culo com IA do Gemini...</p>
-                <p className="text-[10px] text-slate-400">Extraindo nome, contatos, competÃªncias e descriÃ§Ãµes...</p>
+                <p className="text-xs font-semibold text-slate-700">Preenchendo currículo com IA do Gemini...</p>
+                <p className="text-[10px] text-slate-400">Extraindo nome, contatos, competências e descrições...</p>
               </div>
             ) : (
               <div className="space-y-2 flex flex-col items-center">
@@ -333,9 +333,9 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
                   <UploadCloud className="w-4 h-4 text-slate-550" />
                 </div>
                 <p className="text-xs font-medium text-slate-700">
-                  <span className="text-emerald-600 font-bold">Arraste seu currÃ­culo aqui</span> ou clique para selecionar
+                  <span className="text-emerald-600 font-bold">Arraste seu currículo aqui</span> ou clique para selecionar
                 </p>
-                <p className="text-[10px] text-slate-400">PDF, TXT, DOCX ou Imagens de atÃ© 5MB</p>
+                <p className="text-[10px] text-slate-400">PDF, TXT, DOCX ou Imagens de até 5MB</p>
               </div>
             )}
           </div>
@@ -348,15 +348,15 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
           )}
         </div>
 
-        {/* Perfis Base e Download do CurrÃ­culo PrÃ³ (Direita) */}
+        {/* Perfis Base e Download do Currículo Pró (Direita) */}
         <div id="quick-presets-downloads-card" className="lg:col-span-6 bg-gradient-to-r from-emerald-50/70 to-teal-50/30 border border-emerald-100 rounded-2xl p-6 shadow-xs flex flex-col justify-between text-left">
           <div className="space-y-1 mb-4">
             <h3 id="downloads-card-title" className="text-emerald-950 font-display font-semibold text-sm flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-emerald-600" />
-              Presets Exemplo & ExportaÃ§Ã£o
+              Presets Exemplo & Exportação
             </h3>
             <p id="downloads-card-desc" className="text-emerald-800 text-xs">
-              Simule currÃ­culos modelos para testar a plataforma, ou faÃ§a o download das notas modificadas.
+              Simule currículos modelos para testar a plataforma, ou faça o download das notas modificadas.
             </p>
           </div>
 
@@ -369,7 +369,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
                 className="flex-1 px-4 py-2.5 bg-slate-800 hover:bg-slate-950 text-white font-semibold text-xs rounded-xl transition duration-150 shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
-                Perfil InformÃ¡tico (Dev)
+                Perfil Informático (Dev)
               </button>
               <button
                 id="import-adm-btn"
@@ -382,7 +382,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
               </button>
             </div>
 
-            {/* Campo e BotÃ£o para Baixar */}
+            {/* Campo e Botão para Baixar */}
             <div id="export-actions-section" className="pt-3 border-t border-emerald-100 border-dashed space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider">Exportar do AceleraCV</span>
@@ -395,7 +395,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
                 className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition duration-150 flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
               >
                 <Download className="w-4 h-4" />
-                Baixar Meu CurrÃ­culo Preenchido
+                Baixar Meu Currículo Preenchido
               </button>
               <p className="text-[10px] text-emerald-850 text-center leading-normal">
                 Baixa um arquivo de texto Markdown optimizado para Gupy, LinkedIn e outros motores ATS estruturais.
@@ -421,7 +421,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
               value={cvData.fullName}
               onChange={handlePersonalChange}
               placeholder="ex: Carlos Jorge Silva"
-              className="w-full text-sm text-slate-800 px-3.5 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+              className="w-full text-sm text-slate-800 bg-white px-3.5 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
             />
           </div>
           <div>
@@ -432,29 +432,29 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
               value={cvData.email}
               onChange={handlePersonalChange}
               placeholder="ex: carlos@mail.cv"
-              className="w-full text-sm text-slate-800 px-3.5 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+              className="w-full text-sm text-slate-800 bg-white px-3.5 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">TelemÃ³vel / Telefone</label>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Telemóvel / Telefone</label>
             <input
               type="text"
               name="phone"
               value={cvData.phone}
               onChange={handlePersonalChange}
               placeholder="ex: +238 991 22 33"
-              className="w-full text-sm text-slate-800 px-3.5 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+              className="w-full text-sm text-slate-800 bg-white px-3.5 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">LocalizaÃ§Ã£o (Cidade, Ilha)</label>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Localização (Cidade, Ilha)</label>
             <input
               type="text"
               name="location"
               value={cvData.location}
               onChange={handlePersonalChange}
               placeholder="ex: Praia, Santiago, Cabo Verde"
-              className="w-full text-sm text-slate-800 px-3.5 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+              className="w-full text-sm text-slate-800 bg-white px-3.5 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
             />
           </div>
           <div className="md:col-span-2">
@@ -465,7 +465,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
               value={cvData.website || ""}
               onChange={handlePersonalChange}
               placeholder="ex: linkedin.com/in/perfil"
-              className="w-full text-sm text-slate-800 px-3.5 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+              className="w-full text-sm text-slate-800 bg-white px-3.5 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
             />
           </div>
           <div className="md:col-span-2">
@@ -475,8 +475,8 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
               rows={3}
               value={cvData.summary}
               onChange={handlePersonalChange}
-              placeholder="Breve resumo sobre suas aspiraÃ§Ãµes, principais domÃ­nios e conquistas que o definem estrategicamente..."
-              className="w-full text-sm text-slate-800 px-3.5 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition resize-none"
+              placeholder="Breve resumo sobre suas aspirações, principais domínios e conquistas que o definem estrategicamente..."
+              className="w-full text-sm text-slate-800 bg-white px-3.5 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition resize-none"
             />
           </div>
         </div>
@@ -487,7 +487,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
         <div className="flex justify-between items-center border-b border-slate-50 pb-3">
           <h2 id="experience-header" className="text-slate-800 font-display font-semibold text-lg flex items-center gap-2">
             <Briefcase className="w-5 h-5 text-emerald-600" />
-            ExperiÃªncia Profissional
+            Experiência Profissional
           </h2>
           <button
             id="add-exp-btn"
@@ -501,31 +501,31 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
         </div>
 
         {cvData.experience.length === 0 ? (
-          <p className="text-slate-400 text-sm py-4 text-center">Nenhuma experiÃªncia de trabalho listada. Clique em "Adicionar Cargo" ou acima em Importar.</p>
+          <p className="text-slate-400 text-sm py-4 text-center">Nenhuma experiência de trabalho listada. Clique em "Adicionar Cargo" ou acima em Importar.</p>
         ) : (
           <div className="space-y-6">
             {cvData.experience.map((exp, idx) => (
               <div key={exp.id} className="relative border border-slate-100 rounded-xl p-5 bg-slate-50/40 space-y-4 pt-12">
                 <span className="absolute top-4 left-5 bg-emerald-50 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-md border border-emerald-100/50">
-                  Cargo / ExperiÃªncia #{idx + 1}
+                  Cargo / Experiência #{idx + 1}
                 </span>
                 <button
                   type="button"
                   onClick={() => handleRemoveExperience(exp.id)}
-                  title="remover experiÃªncia"
+                  title="remover experiência"
                   className="absolute top-4 right-4 text-slate-400 hover:text-rose-500 transition-all p-1.5 hover:bg-rose-50 rounded-lg"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-0.5">TÃ­tulo do Cargo</label>
+                    <label className="block text-xs font-medium text-slate-500 mb-0.5">Título do Cargo</label>
                     <input
                       type="text"
                       value={exp.role || ""}
                       onChange={(e) => handleUpdateExperience(exp.id, "role", e.target.value)}
                       placeholder="ex: Diretor Comercial, Designer, Programador"
-                      className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white"
+                      className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg"
                     />
                   </div>
                   <div>
@@ -535,46 +535,46 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
                       value={exp.company || ""}
                       onChange={(e) => handleUpdateExperience(exp.id, "company", e.target.value)}
                       placeholder="ex: CV Telecom, Banco de Cabo Verde"
-                      className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white"
+                      className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-0.5">InÃ­cio - Fim (Datas)</label>
+                    <label className="block text-xs font-medium text-slate-500 mb-0.5">Início - Fim (Datas)</label>
                     <div className="grid grid-cols-2 gap-2">
                       <input
                         type="text"
                         value={exp.startDate || ""}
                         onChange={(e) => handleUpdateExperience(exp.id, "startDate", e.target.value)}
                         placeholder="ex: Ago 2021"
-                        className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white"
+                        className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg"
                       />
                       <input
                         type="text"
                         value={exp.endDate || ""}
                         onChange={(e) => handleUpdateExperience(exp.id, "endDate", e.target.value)}
                         placeholder="ex: Presente"
-                        className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white"
+                        className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-0.5">LocalizaÃ§Ã£o</label>
+                    <label className="block text-xs font-medium text-slate-500 mb-0.5">Localização</label>
                     <input
                       type="text"
                       value={exp.location || ""}
                       onChange={(e) => handleUpdateExperience(exp.id, "location", e.target.value)}
                       placeholder="ex: Praia, Santiago"
-                      className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white"
+                      className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg"
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-medium text-slate-500 mb-0.5">DescriÃ§Ã£o de AtribuiÃ§Ãµes e Conquistas</label>
+                    <label className="block text-xs font-medium text-slate-500 mb-0.5">Descrição de Atribuições e Conquistas</label>
                     <textarea
                       rows={3}
                       value={exp.description || ""}
                       onChange={(e) => handleUpdateExperience(exp.id, "description", e.target.value)}
-                      placeholder="Detalhes sobre suas rotinas principais, projetos relevantes ou reduÃ§Ãµes de custos/erros que efetuou..."
-                      className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white resize-none"
+                      placeholder="Detalhes sobre suas rotinas principais, projetos relevantes ou reduções de custos/erros que efetuou..."
+                      className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg resize-none"
                     />
                   </div>
                 </div>
@@ -588,7 +588,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
               className="w-full py-4 border-2 border-dashed border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/10 text-slate-500 hover:text-emerald-700 rounded-xl text-center text-xs font-semibold transition duration-150 flex items-center justify-center gap-2 cursor-pointer active:scale-98"
             >
               <Plus className="w-4 h-4 text-emerald-500" />
-              Adicionar Nova ExperiÃªncia Profissional (Sem Limites)
+              Adicionar Nova Experiência Profissional (Sem Limites)
             </button>
           </div>
         )}
@@ -599,7 +599,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
         <div className="flex justify-between items-center border-b border-slate-50 pb-3">
           <h2 id="education-header" className="text-slate-800 font-display font-semibold text-lg flex items-center gap-2">
             <GraduationCap className="w-5 h-5 text-emerald-600" />
-            EducaÃ§Ã£o & FormaÃ§Ã£o
+            Educação & Formação
           </h2>
           <button
             id="add-edu-btn"
@@ -608,74 +608,74 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
             className="text-xs text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 transition rounded-xl"
           >
             <Plus className="w-4 h-4" />
-            Adicionar EducaÃ§Ã£o
+            Adicionar Educação
           </button>
         </div>
 
         {cvData.education.length === 0 ? (
-          <p className="text-slate-400 text-sm py-4 text-center">Nenhuma educaÃ§Ã£o ou curso listado. Clique em "Adicionar EducaÃ§Ã£o".</p>
+          <p className="text-slate-400 text-sm py-4 text-center">Nenhuma educação ou curso listado. Clique em "Adicionar Educação".</p>
         ) : (
           <div className="space-y-6">
             {cvData.education.map((edu, idx) => (
               <div key={edu.id} className="relative border border-slate-100 rounded-xl p-5 bg-slate-50/40 space-y-4 pt-12">
                 <span className="absolute top-4 left-5 bg-teal-50 text-teal-800 text-[10px] font-bold px-2.5 py-1 rounded-md border border-teal-100/50">
-                  FormaÃ§Ã£o / Curso #{idx + 1}
+                  Formação / Curso #{idx + 1}
                 </span>
                 <button
                   type="button"
                   onClick={() => handleRemoveEducation(edu.id)}
-                  title="remover educaÃ§Ã£o"
+                  title="remover educação"
                   className="absolute top-4 right-4 text-slate-400 hover:text-rose-500 transition-all p-1.5 hover:bg-rose-50 rounded-lg"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-0.5">TÃ­tulo do Curso / Licenciatura</label>
+                    <label className="block text-xs font-medium text-slate-500 mb-0.5">Título do Curso / Licenciatura</label>
                     <input
                       type="text"
                       value={edu.degree || ""}
                       onChange={(e) => handleUpdateEducation(edu.id, "degree", e.target.value)}
-                      placeholder="ex: Licenciatura, TecnÃ³logo, Mestrado"
-                      className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white"
+                      placeholder="ex: Licenciatura, Tecnólogo, Mestrado"
+                      className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-0.5">Ãrea de Estudo</label>
+                    <label className="block text-xs font-medium text-slate-500 mb-0.5">Área de Estudo</label>
                     <input
                       type="text"
                       value={edu.fieldOfStudy || ""}
                       onChange={(e) => handleUpdateEducation(edu.id, "fieldOfStudy", e.target.value)}
-                      placeholder="ex: GestÃ£o de Empresas, InformÃ¡tica de Redes"
-                      className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white"
+                      placeholder="ex: Gestão de Empresas, Informática de Redes"
+                      className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-0.5">InstituiÃ§Ã£o / Escola</label>
+                    <label className="block text-xs font-medium text-slate-500 mb-0.5">Instituição / Escola</label>
                     <input
                       type="text"
                       value={edu.school || ""}
                       onChange={(e) => handleUpdateEducation(edu.id, "school", e.target.value)}
                       placeholder="ex: Universidade de Cabo Verde (Uni-CV)"
-                      className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white"
+                      className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-0.5">Datas (InÃ­cio - Fim)</label>
+                    <label className="block text-xs font-medium text-slate-500 mb-0.5">Datas (Início - Fim)</label>
                     <div className="grid grid-cols-2 gap-2">
                       <input
                         type="text"
                         value={edu.startDate || ""}
                         onChange={(e) => handleUpdateEducation(edu.id, "startDate", e.target.value)}
                         placeholder="ex: 2019"
-                        className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white"
+                        className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg"
                       />
                       <input
                         type="text"
                         value={edu.endDate || ""}
                         onChange={(e) => handleUpdateEducation(edu.id, "endDate", e.target.value)}
                         placeholder="ex: 2023"
-                        className="w-full text-xs px-3 py-1.5 border border-slate-200 rounded-lg bg-white"
+                        className="w-full text-xs text-slate-800 bg-white px-3 py-1.5 border border-slate-200 rounded-lg"
                       />
                     </div>
                   </div>
@@ -690,7 +690,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
               className="w-full py-4 border-2 border-dashed border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/10 text-slate-500 hover:text-emerald-700 rounded-xl text-center text-xs font-semibold transition duration-150 flex items-center justify-center gap-2 cursor-pointer active:scale-98"
             >
               <Plus className="w-4 h-4 text-emerald-500" />
-              Adicionar Nova EducaÃ§Ã£o ou FormaÃ§Ã£o (Sem Limites)
+              Adicionar Nova Educação ou Formação (Sem Limites)
             </button>
           </div>
         )}
@@ -702,14 +702,14 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
         <div id="skills-subcard" className="bg-white border border-slate-100 rounded-2xl p-6 shadow-xs space-y-4">
           <h2 id="skills-form-header" className="text-slate-800 font-display font-semibold text-lg flex items-center gap-2 border-b border-slate-50 pb-3">
             <Code className="w-5 h-5 text-emerald-600" />
-            CompetÃªncias & Ferramentas
+            Competências & Ferramentas
           </h2>
           <form onSubmit={handleAddSkill} className="flex gap-2">
             <input
               type="text"
               value={newSkill}
               onChange={(e) => setNewSkill(e.target.value)}
-              placeholder="Adicionar competÃªncia (ex: SQL, Excel)..."
+              placeholder="Adicionar competência (ex: SQL, Excel)..."
               className="flex-1 text-xs text-slate-800 bg-white px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
             />
             <button
@@ -736,7 +736,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
               </span>
             ))}
             {cvData.skills.length === 0 && (
-              <p className="text-slate-400 text-xs py-2">Sem qualificaÃ§Ãµes adicionadas de momento.</p>
+              <p className="text-slate-400 text-xs py-2">Sem qualificações adicionadas de momento.</p>
             )}
           </div>
         </div>
@@ -752,7 +752,7 @@ export default function ResumeForm({ cvData, onChange }: ResumeFormProps) {
               type="text"
               value={newLang}
               onChange={(e) => setNewLang(e.target.value)}
-              placeholder="Adicionar lÃ­ngua (ex: InglÃªs, Crioulo)..."
+              placeholder="Adicionar língua (ex: Inglês, Crioulo)..."
               className="flex-1 text-xs text-slate-800 bg-white px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
             />
             <button
