@@ -537,7 +537,7 @@ app.post("/api/parse-cv-file", checkApiKey, async (req, res) => {
     };
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: contents,
       config: config
     });
@@ -704,7 +704,7 @@ app.post("/api/optimize-cv", checkApiKey, async (req, res) => {
     }
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: config
     });
@@ -757,7 +757,7 @@ app.post("/api/generate-cover-letter", checkApiKey, async (req, res) => {
     `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -821,7 +821,7 @@ app.post("/api/generate-networking", checkApiKey, async (req, res) => {
     `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -886,7 +886,7 @@ app.post("/api/interview-simulator", checkApiKey, async (req, res) => {
     `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -959,7 +959,7 @@ app.post("/api/interview-evaluate", checkApiKey, async (req, res) => {
     `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -1019,7 +1019,7 @@ app.post("/api/company-dossier", checkApiKey, async (req, res) => {
     `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         tools: [{ googleSearch: {} }],
