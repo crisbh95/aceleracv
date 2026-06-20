@@ -16,7 +16,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3005;
 
 // Rate limiter for API endpoints
 const apiLimiter = rateLimit({
